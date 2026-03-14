@@ -1,0 +1,29 @@
+
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: fake_news
+      MYSQL_USER: fakeuser
+      MYSQL_PASSWORD: fakepass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    build: .
+    command: ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    environment:
+      DATABASE_URL: "mysql+pymysql://fakeuser:fakepass@db:3306/fake_news"
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "admin123"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
