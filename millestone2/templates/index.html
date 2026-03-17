@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NLP Processed</title>
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>NLP PROCESSED</h1>
+
+        <!-- Main Input Form -->
+        <form method="POST">
+            <textarea name="text" placeholder="Enter text here..." required></textarea>
+            <button type="submit">Process Text</button>
+        </form>
+        
+        {% if tokens %}
+        
+        <!-- TOKENS FORM -->
+        <form method="POST">
+            <h2>TOKENS</h2>
+            <div class="badge-container">
+                {% for token in tokens %}
+                    <span class="badge">{{ token }}</span>
+                {% endfor %}
+            </div>
+        </form>
+        
+        <!-- LEMMAS FORM -->
+        <form method="POST">
+            <h2>LEMMAS</h2>
+            <div class="badge-container">
+                {% for lemma in lemmas %}
+                    <span class="badge">{{ lemma }}</span>
+                {% endfor %}
+            </div>
+        </form>
+        
+        <!-- ENTITIES FORM -->
+        <form method="POST">
+            <h2>ENTITIES</h2>
+            <div class="badge-container">
+                {% if entities %}
+                    {% for ent, label in entities %}
+                        <span class="entity-badge">{{ ent }} → {{ label }}</span>
+                    {% endfor %}
+                {% else %}
+                    <span>No entities found</span>
+                {% endif %}
+            </div>
+        </form>
+        
+        <!-- CLEANED TEXT FORM -->
+        <form method="POST">
+            <h2>CLEANED TEXT</h2>
+            <div class="cleaned-text">
+                {{ cleaned_text }}
+            </div>
+        </form>
+        
+        {% endif %}
+    </div>
+
+</body>
+</html>

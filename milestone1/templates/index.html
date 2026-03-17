@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Fake News Detection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            padding: 40px;
+        }
+        .container {
+            max-width: 480px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #007bff;
+            border: none;
+            padding: 12px 30px;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: left;
+            font-size: 18px;
+            box-shadow: inset 0 0 5px #ddd;
+        }
+        .result h3 {
+            margin-top: 0;
+            font-weight: 700;
+        }
+        .confidence {
+            margin: 6px 0;
+        }
+        .input-display {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-style: italic;
+            color: #333;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📰 Fake News Detection Tool</h2>
+        <form method="post">
+            <textarea name="news" placeholder="Enter news text here..." required>{{ input_news }}</textarea><br/>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if verdict %}
+        <div class="result">
+            <h3>Result: {{ prediction }}</h3>
+            <div class="confidence">Real Confidence: {{ real_percent }}%</div>
+            <div class="confidence">Fake Confidence: {{ fake_percent }}%</div>
+            <div class="confidence">Model Accuracy: {{ accuracy }}%</div>
+            <div class="input-display"><strong>Input News:</strong><br />{{ input_news }}</div>
+            <h3 style="margin-top:15px;">{{ verdict }}</h3>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
